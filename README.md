@@ -206,9 +206,31 @@ Contributions are welcome! Please read our [contributing guide](CONTRIBUTING.md)
 
 ## 📄 License
 
-This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
+अगर यह प्रोजेक्ट **MIT License** के अंतर्गत नहीं है और आप चाहते हैं कि इसे केवल व्यक्तिगत या शैक्षिक उपयोग (non-commercial) के लिए ही अनुमति दी जाए, तो आप एक **custom license notice** लिख सकते हैं।
+
+यहाँ एक **उचित और स्पष्ट custom license section** है जो आपकी शर्तों को दर्शाता है:
 
 ---
+
+## 📄 License
+
+This project is licensed for **personal and non-commercial use only**.
+
+* ✅ You are allowed to:
+
+  * Use this project for personal learning and educational purposes.
+  * Modify or adapt it for private use.
+
+* ❌ You are **not allowed** to:
+
+  * Use this project or any part of it for commercial purposes.
+  * Sell, sublicense, or redistribute it in any form.
+  * Host or deploy this project publicly as a paid service or product.
+
+**Violation of these terms may result in legal action. For commercial use, please contact the author for explicit written permission.**
+
+---
+
 
 ## 📬 Contact
 
