@@ -98,7 +98,7 @@ const HomePage = () => {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="border-white text-white hover:bg-white/10 focus:bg-white/10 focus:text-white"
+                  className="border-white text-primary hover:bg-white/10 focus:bg-white/10 focus:text-white"
                   asChild
                 >
                   <Link to="/profile">
