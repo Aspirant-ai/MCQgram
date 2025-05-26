@@ -1,178 +1,137 @@
 
-import React, { useState } from 'react';
-import { Outlet, Link, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Menu, X, User, BookOpen, BarChart2, Home, LogOut } from 'lucide-react';
+import { Home, BookCopy, User, LogIn, LayoutDashboard, DollarSign, Video, FileText, Rss, Edit3, MessageSquare, Menu, X, GraduationCap, Zap, BookOpenCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
+
+const navItems = [
+  { name: 'Home', path: '/', icon: <Home className="h-5 w-5" /> },
+  { name: 'Exams', path: '/categories', icon: <BookCopy className="h-5 w-5" /> },
+  { name: 'Live Tests', path: '/live-tests', icon: <Zap className="h-5 w-5" /> },
+  { name: 'Study Material', path: '/study-material', icon: <BookOpenCheck className="h-5 w-5" /> },
+  { name: 'Classes', path: '/classes', icon: <Video className="h-5 w-5" /> },
+  { name: 'Current Affairs', path: '/current-affairs', icon: <Rss className="h-5 w-5" /> },
+  { name: 'Subscriptions', path: '/subscriptions', icon: <DollarSign className="h-5 w-5" /> },
+  { name: 'Doubt Forum', path: '/doubt-forum', icon: <MessageSquare className="h-5 w-5" /> },
+  { name: 'Profile', path: '/profile', icon: <User className="h-5 w-5" /> },
+];
 
 const MainLayout = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const { toast } = useToast();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleLogout = () => {
-    // In a real app, this would clear authentication
-    localStorage.removeItem('user');
-    toast({
-      title: "Logged out successfully",
-      description: "You have been logged out of your account.",
-    });
-  };
-
-  const navLinks = [
-    { path: '/', label: 'Home', icon: <Home className="h-5 w-5 mr-2" /> },
-    { path: '/categories', label: 'Exams', icon: <BookOpen className="h-5 w-5 mr-2" /> },
-    { path: '/profile', label: 'Profile', icon: <User className="h-5 w-5 mr-2" /> },
-  ];
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Header */}
-      <header className="bg-white shadow-md z-10">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <Link to="/" className="flex items-center">
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="flex items-center"
-            >
-              <div className="bg-primary rounded-full p-2 mr-2">
-                <BarChart2 className="h-6 w-6 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                MCQgram
-              </span>
-            </motion.div>
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-slate-100">
+      <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <Link to="/" className="flex items-center space-x-2">
+            <GraduationCap className="h-8 w-8 text-primary" />
+            <span className="text-2xl font-bold text-gray-800">MCQgram</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`flex items-center px-3 py-2 rounded-md transition-colors ${
-                  location.pathname === link.path
-                    ? 'text-primary font-medium'
-                    : 'text-gray-600 hover:text-primary hover:bg-gray-50'
-                }`}
+          <nav className="hidden md:flex items-center space-x-2">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.name}
+                to={item.path}
+                className={({ isActive }) =>
+                  `px-3 py-2 rounded-md text-sm font-medium flex items-center space-x-2 transition-colors
+                  ${isActive ? 'bg-primary/10 text-primary' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`
+                }
               >
-                {link.icon}
-                {link.label}
-              </Link>
+                {item.icon}
+                <span>{item.name}</span>
+              </NavLink>
             ))}
-            <Button 
-              variant="outline" 
-              className="flex items-center" 
-              onClick={handleLogout}
-            >
-              <LogOut className="h-4 w-4 mr-2" />
-              Logout
-            </Button>
           </nav>
+          
+          <div className="hidden md:flex items-center space-x-2">
+            <Button variant="ghost" asChild>
+              <Link to="/login">
+                <LogIn className="mr-2 h-4 w-4" /> Login
+              </Link>
+            </Button>
+          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 rounded-md text-gray-600 hover:text-primary hover:bg-gray-50"
-            onClick={toggleMenu}
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          <div className="md:hidden">
+            <Button variant="ghost" size="icon" onClick={toggleMobileMenu}>
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden bg-white border-t"
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-white border-t border-gray-200 shadow-lg"
           >
-            <div className="container mx-auto px-4 py-2 flex flex-col">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`flex items-center px-4 py-3 rounded-md transition-colors ${
-                    location.pathname === link.path
-                      ? 'text-primary font-medium bg-gray-50'
-                      : 'text-gray-600 hover:text-primary hover:bg-gray-50'
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
+            <nav className="flex flex-col space-y-1 px-2 py-3">
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.name}
+                  to={item.path}
+                  onClick={toggleMobileMenu}
+                  className={({ isActive }) =>
+                    `px-3 py-2 rounded-md text-base font-medium flex items-center space-x-3
+                    ${isActive ? 'bg-primary/10 text-primary' : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'}`
+                  }
                 >
-                  {link.icon}
-                  {link.label}
-                </Link>
+                  {item.icon}
+                  <span>{item.name}</span>
+                </NavLink>
               ))}
-              <Button 
-                variant="outline" 
-                className="flex items-center mt-2 mx-4" 
-                onClick={() => {
-                  handleLogout();
-                  setIsMenuOpen(false);
-                }}
-              >
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
+              <div className="border-t my-2"></div>
+              <Button variant="ghost" asChild className="w-full justify-start px-3 py-2">
+                <Link to="/login" onClick={toggleMobileMenu}>
+                  <LogIn className="mr-3 h-5 w-5" /> Login
+                </Link>
               </Button>
-            </div>
+            </nav>
           </motion.div>
         )}
       </header>
 
-      {/* Main Content */}
       <main className="flex-grow">
         <Outlet />
       </main>
 
-      {/* Footer */}
-      <footer className="bg-gray-50 border-t py-8">
+      <footer className="bg-gray-800 text-gray-300 py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-              <div className="flex items-center mb-4">
-                <div className="bg-primary rounded-full p-2 mr-2">
-                  <BarChart2 className="h-5 w-5 text-white" />
-                </div>
-                <span className="text-lg font-bold">MCQgram</span>
+              <div className="flex items-center space-x-2 mb-4">
+                 <GraduationCap className="h-8 w-8 text-primary" />
+                 <span className="text-xl font-bold text-white">MCQgram</span>
               </div>
-              <p className="text-gray-600 text-sm">
-                Your ultimate platform for competitive exam preparation. Practice with mock tests for SSC, Bank, Railway and more.
+              <p className="text-sm">
+                Your partner in acing competitive exams. Practice, analyze, and achieve your goals with MCQgram.
               </p>
             </div>
             <div>
-              <span className="font-medium block mb-4">Quick Links</span>
+              <p className="text-white font-semibold mb-4">Quick Links</p>
               <ul className="space-y-2 text-sm">
-                <li>
-                  <Link to="/" className="text-gray-600 hover:text-primary">Home</Link>
-                </li>
-                <li>
-                  <Link to="/categories" className="text-gray-600 hover:text-primary">Exam Categories</Link>
-                </li>
-                <li>
-                  <Link to="/profile" className="text-gray-600 hover:text-primary">My Profile</Link>
-                </li>
+                <li><Link to="/categories" className="hover:text-white">All Exams</Link></li>
+                <li><Link to="/subscriptions" className="hover:text-white">Subscription Plans</Link></li>
+                <li><Link to="/study-material" className="hover:text-white">Study Material</Link></li>
+                <li><Link to="/profile" className="hover:text-white">Your Profile</Link></li>
               </ul>
             </div>
             <div>
-              <span className="font-medium block mb-4">Contact Us</span>
-              <p className="text-gray-600 text-sm mb-2">
-                Have questions or feedback? Reach out to our support team.
-              </p>
-              <p className="text-gray-600 text-sm">
-                Email: support@mcqgram.com
-              </p>
+              <p className="text-white font-semibold mb-4">Contact Us</p>
+              <ul className="space-y-2 text-sm">
+                <li><span className="hover:text-white">support@mcqgram.com</span></li>
+                <li><span className="hover:text-white">+1 234 567 8900</span></li>
+                <li><span className="hover:text-white">123 Exam Street, Test City, India</span></li>
+              </ul>
             </div>
           </div>
-          <div className="border-t mt-8 pt-6 text-center text-sm text-gray-600">
-            <p>© {new Date().getFullYear()} MCQgram. All rights reserved.</p>
+          <div className="mt-8 border-t border-gray-700 pt-8 text-center text-sm">
+            <p>&copy; {new Date().getFullYear()} MCQgram. All rights reserved.</p>
           </div>
         </div>
       </footer>

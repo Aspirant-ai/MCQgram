@@ -184,7 +184,6 @@ logger.error = (msg, options) => {
 export default defineConfig({
 	customLogger: logger,
 	plugins: [react(), addTransformIndexHtml],
-	base: '/MCQgram/',
 	server: {
 		cors: true,
 		headers: {

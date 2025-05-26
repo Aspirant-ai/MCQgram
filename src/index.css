@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,147 +6,192 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
+
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
+ 
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
+ 
+    --primary: 262.1 83.3% 57.8%; /* Vibrant Purple */
     --primary-foreground: 210 40% 98%;
+ 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
+ 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
+ 
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
+ 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
+
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --ring: 262.1 83.3% 57.8%; /* Ring matches primary */
+ 
     --radius: 0.5rem;
   }
-
+ 
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
+ 
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
+ 
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
+ 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
+ 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
+ 
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
+ 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
+ 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --ring: 262.1 83.3% 57.8%;
   }
 }
-
+ 
 @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
+/* Gradient Background for Hero Sections */
 .gradient-bg {
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, theme('colors.primary.DEFAULT') 0%, theme('colors.purple.600') 50%, theme('colors.pink.500') 100%);
 }
 
+/* Glassmorphism Card */
 .glass-card {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
+/* Exam Card Styling */
 .exam-card {
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .exam-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
+/* Test Page Question Number Styles */
 .question-number {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  @apply w-full h-8 flex items-center justify-center rounded-md border transition-all duration-200;
 }
+.question-number.answered { @apply bg-green-500 text-white border-green-600 hover:bg-green-600; }
+.question-number.not-answered { @apply bg-red-500 text-white border-red-600 hover:bg-red-600; } /* Updated: Was gray-300 */
+.question-number.marked { @apply bg-blue-500 text-white border-blue-600 hover:bg-blue-600; } /* Updated: Was yellow */
+.question-number.answered-marked { @apply bg-purple-500 text-white border-purple-600 hover:bg-purple-600; } /* New */
+.question-number.not-visited { @apply bg-gray-200 text-gray-700 border-gray-300 hover:bg-gray-300; } /* New */
 
-.question-number.answered {
-  background-color: #4f46e5;
-  color: white;
-}
 
-.question-number.marked {
-  background-color: #f59e0b;
-  color: white;
-}
-
-.question-number.not-answered {
-  background-color: #e5e7eb;
-  color: #374151;
-}
-
-.question-number:hover {
-  transform: scale(1.1);
-}
-
+/* Timer Warning Animation */
 .timer-warning {
-  animation: pulse 1.5s infinite;
+  animation: pulse-red 1.5s infinite;
+}
+@keyframes pulse-red {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
+/* Custom Scrollbar for specific elements */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: theme('colors.gray.100');
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: theme('colors.gray.400');
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.gray.500');
 }
 
+/* Hide scrollbar globally for no-scrollbar class (use with caution) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Test page specific layout adjustments for no scroll */
+body.test-page-active {
+  overflow: hidden !important;
+}
+#root.test-page-active {
+  overflow: hidden !important;
+  height: 100vh; /* or 100svh */
+  width: 100vw; /* or 100svw */
+  position: fixed;
+  inset:0;
+}
+
+/* Result page specific card styles */
 .result-card {
-  position: relative;
-  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+.result-card:hover {
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
 }
 
-.result-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(
-    transparent, 
-    rgba(79, 70, 229, 0.1), 
-    transparent 30%
-  );
-  animation: rotate 4s linear infinite;
-}
-
-@keyframes rotate {
-  100% {
-    transform: rotate(1turn);
+/* Print specific styles */
+@media print {
+  body {
+    -webkit-print-color-adjust: exact; /* Chrome, Safari */
+    print-color-adjust: exact; /* Firefox, Edge */
+    background-color: white !important;
+  }
+  .print\:hidden {
+    display: none !important;
+  }
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .bg-white, .bg-gray-50, .bg-gradient-to-br, .gradient-bg {
+    background: white !important; /* Ensure backgrounds are white for printing */
+  }
+  .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl {
+    box-shadow: none !important; /* Remove shadows */
+  }
+  .border, .border-gray-100, .border-gray-200 {
+    border-color: #ccc !important; /* Lighten borders */
+  }
+  header, footer { /* Hide main layout header/footer */
+    display: none !important;
+  }
+  /* Specific adjustments for ResultPage content */
+  .result-page-content {
+    padding: 10mm !important;
   }
 }
