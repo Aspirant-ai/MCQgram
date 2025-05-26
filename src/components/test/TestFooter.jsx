@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ChevronLeft, ChevronRight, Flag, X, RefreshCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -10,10 +9,11 @@ const TestFooter = ({
   toggleMarkQuestion,
   isMarked,
   canGoPrev,
-  canGoNext
+  canGoNext,
+  isNavPanelOpen
 }) => {
   return (
-    <footer className="bg-white shadow-md py-2 px-4 fixed bottom-0 left-0 right-0 z-20 border-t">
+    <footer className={`bg-white shadow-md py-2 px-4 fixed bottom-0 left-0 z-20 border-t transition-all duration-300 ease-in-out ${isNavPanelOpen ? 'right-[280px] md:right-[300px]' : 'right-0'}`}>
       <div className="flex flex-wrap justify-between items-center gap-2">
         <Button 
           variant="outline" 
@@ -24,7 +24,7 @@ const TestFooter = ({
         >
           <ChevronLeft className="mr-1 h-4 w-4" /> Previous
         </Button>
-        <div className="flex gap-2">
+        <div className="flex gap-1 md:gap-2">
           <Button 
             variant="outline"
             size="sm"

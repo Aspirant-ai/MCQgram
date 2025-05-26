@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Clock, Maximize, Minimize, Plus, Minus, PanelRightOpen, PanelRightClose, Languages } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectPortal } from "@/components/ui/select";
 
 const TestHeader = ({
   examName,
@@ -21,14 +20,15 @@ const TestHeader = ({
   handleZoomIn,
   handleZoomOut,
   language,
-  setLanguage
+  setLanguage,
+  portalContainer // Added for SelectPortal
 }) => {
-  const isTimeWarning = timeLeft <= 300;
+  const isTimeWarning = timeLeft <= 300; // 5 minutes warning
 
   return (
     <header className="bg-white shadow-md py-2 px-4 fixed top-0 left-0 right-0 z-20">
       <div className="flex justify-between items-center">
-        <div className="max-w-[calc(100%-350px)]">
+        <div className="max-w-[calc(100%-350px)]"> {/* Adjust max-width as needed */}
           <h1 className="text-base md:text-lg font-bold truncate" title={examName}>{examName}</h1>
           <p className="text-gray-600 text-xs md:text-sm truncate" title={examFullName}>{examFullName}</p>
         </div>
@@ -48,10 +48,12 @@ const TestHeader = ({
               <Languages className="h-3 w-3 mr-1"/>
               <SelectValue placeholder="Lang" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="en">English</SelectItem>
-              <SelectItem value="hi">हिन्दी</SelectItem>
-            </SelectContent>
+            <SelectPortal container={portalContainer}>
+              <SelectContent>
+                <SelectItem value="en">English</SelectItem>
+                <SelectItem value="hi">हिन्दी</SelectItem>
+              </SelectContent>
+            </SelectPortal>
           </Select>
           <div className={`flex items-center p-1 rounded ${isTimeWarning ? 'text-red-500 bg-red-50 timer-warning' : 'text-gray-700 bg-gray-100'}`}>
             <Clock className="h-4 w-4 mr-1" />
@@ -70,19 +72,21 @@ const TestHeader = ({
           </Button>
         </div>
       </div>
-      <div className="mt-1 flex space-x-1 overflow-x-auto pb-1 no-scrollbar">
-        {sections.map(sec => (
-          <Button
-            key={sec}
-            variant={currentSection === sec ? "default" : "outline"}
-            size="sm"
-            className="text-xs whitespace-nowrap px-2 py-1 h-7"
-            onClick={() => goToSection(sec)}
-          >
-            {sec}
-          </Button>
-        ))}
-      </div>
+      {sections && sections.length > 1 && (
+        <div className="mt-1 flex space-x-1 overflow-x-auto pb-1 no-scrollbar">
+          {sections.map(sec => (
+            <Button
+              key={sec}
+              variant={currentSection === sec ? "default" : "outline"}
+              size="sm"
+              className="text-xs whitespace-nowrap px-2 py-1 h-7"
+              onClick={() => goToSection(sec)}
+            >
+              {sec}
+            </Button>
+          ))}
+        </div>
+      )}
     </header>
   );
 };

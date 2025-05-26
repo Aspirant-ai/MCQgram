@@ -42,7 +42,7 @@ const QuestionPanel = ({
   }));
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-4 md:p-5 flex-grow flex flex-col" style={{ transform: `scale(${zoomLevel})`, transformOrigin: 'top left' }}>
+    <div className="bg-white rounded-xl shadow-md p-4 md:p-5 flex-grow flex flex-col overflow-hidden" style={{ transform: `scale(${zoomLevel})`, transformOrigin: 'top left' }}>
       <div className="flex justify-between items-center mb-2">
         <span className="bg-primary text-white text-xs font-medium py-1 px-2.5 rounded-full">
           Question {currentQuestionIndex + 1}/{totalQuestions}
@@ -55,14 +55,14 @@ const QuestionPanel = ({
       
       <Progress value={progressPercentage} className="h-1.5 mb-3" />
       
-      <div className="text-sm md:text-base font-medium mb-3 leading-relaxed question-text-container flex-grow overflow-y-auto pr-2 custom-scrollbar">
+      <div className="text-sm md:text-base font-medium mb-3 leading-relaxed question-text-container overflow-y-auto pr-2 custom-scrollbar flex-shrink-0">
         {displayQuestionText}
       </div>
       
       <RadioGroup 
         value={answers[currentQuestion.id] || ""} 
         onValueChange={(value) => handleAnswerChange(currentQuestion.id, value)}
-        className="space-y-2.5 mt-auto options-container overflow-y-auto max-h-[40vh] pr-2 custom-scrollbar"
+        className="space-y-2 options-container overflow-y-auto pr-2 custom-scrollbar flex-shrink-0"
       >
         {displayOptions.map((option) => (
           <div key={option.id} className="flex items-start space-x-2.5 p-2.5 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200 hover:border-primary cursor-pointer">
@@ -81,6 +81,8 @@ const QuestionPanel = ({
           </div>
         ))}
       </RadioGroup>
+      {/* Empty div to push content up if options don't fill space, QuestionPanel is flex-grow */}
+      <div className="flex-grow"></div> 
     </div>
   );
 };

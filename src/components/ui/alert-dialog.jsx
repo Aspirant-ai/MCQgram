@@ -1,4 +1,3 @@
-
 import React from "react"
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
 
@@ -9,7 +8,11 @@ const AlertDialog = AlertDialogPrimitive.Root
 
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger
 
-const AlertDialogPortal = AlertDialogPrimitive.Portal
+const AlertDialogPortal = ({ className, ...props }) => (
+  <AlertDialogPrimitive.Portal className={cn(className)} {...props} />
+);
+AlertDialogPortal.displayName = AlertDialogPrimitive.Portal.displayName;
+
 
 const AlertDialogOverlay = React.forwardRef(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Overlay
