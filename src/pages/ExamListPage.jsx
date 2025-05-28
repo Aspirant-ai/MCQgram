@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -20,7 +21,7 @@ const ExamListPage = () => {
         description: "The exam category you're looking for doesn't exist.",
         variant: "destructive"
       });
-      navigate('/categories');
+      navigate('/dashboard/categories'); // Adjusted navigation for dashboard context
     }
   }, [categoryData, toast, navigate]);
 
@@ -50,14 +51,21 @@ const ExamListPage = () => {
     }
   };
 
+  const iconMap = {
+    FileText: <FileText className="h-6 w-6" />,
+    Landmark: <Landmark className="h-6 w-6" />,
+    Train: <Train className="h-6 w-6" />,
+    Shield: <Shield className="h-6 w-6" />
+  };
+
   return (
-    <div className="min-h-screen py-12 bg-gray-50">
+    <div className="min-h-screen py-12 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4">
         <div className="mb-8">
           <Button 
             variant="ghost" 
-            className="mb-4"
-            onClick={() => navigate('/categories')}
+            className="mb-4 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+            onClick={() => navigate('/dashboard/categories')} // Adjusted navigation
           >
             <ArrowLeft className="mr-2 h-4 w-4" /> Back to Categories
           </Button>
@@ -68,13 +76,10 @@ const ExamListPage = () => {
             transition={{ duration: 0.5 }}
           >
             <div className={`${categoryData.color} text-white p-4 rounded-lg inline-block mb-4`}>
-              {categoryData.icon === 'FileText' && <FileText className="h-6 w-6" />}
-              {categoryData.icon === 'Landmark' && <Landmark className="h-6 w-6" />}
-              {categoryData.icon === 'Train' && <Train className="h-6 w-6" />}
-              {categoryData.icon === 'Shield' && <Shield className="h-6 w-6" />}
+              {iconMap[categoryData.icon]}
             </div>
-            <h1 className="text-3xl font-bold mb-2">{categoryData.name}</h1>
-            <p className="text-gray-600 max-w-3xl">
+            <h1 className="text-3xl font-bold mb-2 text-gray-800 dark:text-white">{categoryData.name}</h1>
+            <p className="text-gray-600 dark:text-gray-400 max-w-3xl">
               {categoryData.description}
             </p>
           </motion.div>
@@ -90,28 +95,28 @@ const ExamListPage = () => {
             <motion.div
               key={exam.id}
               variants={itemVariants}
-              className="exam-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100"
+              className="exam-card bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700"
             >
               <div className="p-6">
-                <h2 className="text-xl font-semibold mb-1">{exam.name}</h2>
-                <p className="text-gray-500 text-sm mb-4">{exam.fullName}</p>
-                <p className="text-gray-600 mb-4">{exam.description}</p>
+                <h2 className="text-xl font-semibold mb-1 text-gray-800 dark:text-white">{exam.name}</h2>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">{exam.fullName}</p>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">{exam.description}</p>
                 
-                <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="grid grid-cols-2 gap-4 mb-6 text-gray-700 dark:text-gray-300">
                   <div className="flex items-center">
-                    <Clock className="h-4 w-4 text-gray-500 mr-2" />
+                    <Clock className="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2" />
                     <span className="text-sm">{exam.duration} mins</span>
                   </div>
                   <div className="flex items-center">
-                    <FileText className="h-4 w-4 text-gray-500 mr-2" />
+                    <FileText className="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2" />
                     <span className="text-sm">{exam.totalQuestions} questions</span>
                   </div>
                   <div className="flex items-center">
-                    <Award className="h-4 w-4 text-gray-500 mr-2" />
+                    <Award className="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2" />
                     <span className="text-sm">{exam.marksPerQuestion} marks each</span>
                   </div>
                   <div className="flex items-center">
-                    <HelpCircle className="h-4 w-4 text-gray-500 mr-2" />
+                    <HelpCircle className="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2" />
                     <span className="text-sm">-{exam.negativeMarking} for wrong</span>
                   </div>
                 </div>
@@ -120,7 +125,7 @@ const ExamListPage = () => {
                   {exam.sections.map((section, index) => (
                     <span 
                       key={index} 
-                      className="bg-gray-100 text-gray-700 text-xs py-1 px-2 rounded-full"
+                      className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs py-1 px-2 rounded-full"
                     >
                       {section}
                     </span>
@@ -131,7 +136,8 @@ const ExamListPage = () => {
                   className="w-full"
                   asChild
                 >
-                  <Link to={`/instructions/${exam.id}`}>
+                  {/* Adjusted link to be relative to dashboard */}
+                  <Link to={`/dashboard/instructions/${exam.id}`}> 
                     Start Mock Test
                   </Link>
                 </Button>

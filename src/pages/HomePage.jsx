@@ -1,7 +1,8 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen, Clock, Award, BarChart2, CheckCircle2, Users, TrendingUp, ShieldCheck, MessageSquare as MessageSquareQuote, Sparkles } from 'lucide-react';
+import { ArrowRight, BookOpen, Clock, Award, BarChart2, CheckCircle2, Users, TrendingUp, ShieldCheck, MessageSquare as MessageSquareQuote, Sparkles, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getUserAttempts } from '@/lib/data/userAttempts'; 
 
@@ -89,18 +90,18 @@ const HeroSection = () => (
               className="bg-white text-primary hover:bg-gray-100"
               asChild
             >
-              <Link to="/categories">
-                Start Practicing <ArrowRight className="ml-2 h-5 w-5" />
+              <Link to="/login"> {/* Changed from /categories to /login */}
+                Get Started <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             <Button 
               size="lg" 
-              variant="default"
-              className="text-primary-foreground hover:bg-primary/90"
+              variant="outline" // Changed from default to outline
+              className="border-white text-white hover:bg-white/10 focus:bg-white/10 focus:text-white"
               asChild
             >
-              <Link to="/profile">
-                View Your Progress
+              <Link to="/dashboard/categories"> {/* Assuming login first */}
+                Explore Exams
               </Link>
             </Button>
           </div>
@@ -114,7 +115,7 @@ const HeroSection = () => (
           <div className="glass-card rounded-xl p-6 relative overflow-hidden">
             <div className="absolute -right-10 -top-10 w-40 h-40 bg-purple-500 rounded-full opacity-20"></div>
             <div className="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-500 rounded-full opacity-20"></div>
-            <img  alt="Students preparing for competitive exams on MCQgram" className="rounded-lg w-full" src="https://images.unsplash.com/photo-1581056771370-4814aa6dd705" />
+            <img  alt="Students preparing for competitive exams on MCQgram" className="rounded-lg w-full" src="https://images.unsplash.com/photo-1620837913485-75ec3d6fea99" />
           </div>
         </MotionDiv>
       </div>
@@ -222,9 +223,10 @@ const UpdateCard = ({ title, date, description }) => (
     </div>
     <p className="text-xs text-gray-500 mb-3">{date}</p>
     <p className="text-gray-600 text-sm mb-4">{description}</p>
-    <Link to="/updates" className="text-primary font-medium text-sm hover:underline flex items-center">
+    {/* Removed Link to /updates, as it might not exist in dashboard context */}
+    {/* <Link to="/updates" className="text-primary font-medium text-sm hover:underline flex items-center">
       Read More <ArrowRight className="ml-1 h-3 w-3" />
-    </Link>
+    </Link> */}
   </MotionDiv>
 );
 
@@ -258,70 +260,6 @@ const WhatsNewSection = () => (
   </section>
 );
 
-const RecentAttemptCard = ({ attempt, index }) => (
-  <MotionDiv
-    key={attempt.id}
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.3, delay: index * 0.1 }}
-    className="bg-gray-50 rounded-xl shadow-md overflow-hidden border border-gray-200"
-  >
-    <div className="p-6">
-      <div className="flex justify-between items-start mb-4">
-        <div>
-          <h3 className="font-semibold text-lg">{attempt.examId.toUpperCase()}</h3>
-          <p className="text-gray-500 text-sm">{attempt.date}</p>
-        </div>
-        <div className="bg-blue-100 text-blue-600 font-medium text-sm py-1 px-3 rounded-full">
-          {attempt.totalMarks > 0 ? Math.round((attempt.score / attempt.totalMarks) * 100) : 0}%
-        </div>
-      </div>
-      <div className="flex items-center justify-between text-sm">
-        <div className="flex items-center text-gray-600">
-          <Award className="h-4 w-4 mr-1" />
-          <span>Score: {attempt.score}/{attempt.totalMarks}</span>
-        </div>
-        <div className="flex items-center text-gray-600">
-          <Clock className="h-4 w-4 mr-1" />
-          <span>{attempt.timeTaken} mins</span>
-        </div>
-      </div>
-      <div className="mt-4">
-        <Link 
-          to={`/result/${attempt.id}`}
-          className="text-primary text-sm font-medium hover:underline flex items-center"
-        >
-          View Details <ArrowRight className="ml-1 h-3 w-3" />
-        </Link>
-      </div>
-    </div>
-  </MotionDiv>
-);
-
-const RecentActivitySection = () => {
-  const userAttempts = getUserAttempts();
-  const recentAttempts = userAttempts.slice(0, 3);
-
-  if (recentAttempts.length === 0) return null;
-
-  return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold">Your Recent Activity</h2>
-          <Link to="/profile" className="text-primary flex items-center hover:underline">
-            View All <ArrowRight className="ml-1 h-4 w-4" />
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {recentAttempts.map((attempt, index) => (
-            <RecentAttemptCard key={attempt.id} attempt={attempt} index={index} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
 
 const CallToActionSection = () => (
   <section className="py-16 bg-gray-900 text-white">
@@ -342,8 +280,8 @@ const CallToActionSection = () => (
             className="bg-primary hover:bg-primary/90"
             asChild
           >
-            <Link to="/categories">
-              Start Practicing Now <CheckCircle2 className="ml-2 h-5 w-5" />
+            <Link to="/login"> {/* Changed from /categories to /login */}
+              Join MCQgram Now <CheckCircle2 className="ml-2 h-5 w-5" />
             </Link>
           </Button>
         </MotionDiv>
@@ -359,7 +297,7 @@ const HomePage = () => {
       <FeaturesSection />
       <TestimonialsSection />
       <WhatsNewSection />
-      <RecentActivitySection />
+      {/* RecentActivitySection removed from public homepage to avoid data fetching before login */}
       <CallToActionSection />
     </div>
   );
