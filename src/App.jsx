@@ -90,11 +90,18 @@ function App() {
           <Route path="doubt-forum" element={<DoubtForumPage />} />
 
           {/* Nested Routes under Dashboard */}
-          <Route path="instructions/:examId" element={<TestInstructionsPage />} />
-          <Route path="test/:examId" element={<TestPage />} />
+          <Route path="instructions/:examId" element={<TestLayout><TestInstructionsPage /></TestLayout>} />
+          <Route path="test/:examId" element={<TestLayout><TestPage /></TestLayout>} />
           <Route path="result/:attemptId" element={<ResultPage />} />
-          <Route path="solution/:attemptId" element={<SolutionPage />} />
+          <Route path="solution/:attemptId" element={<TestLayout><SolutionPage /></TestLayout>} />
         </Route>
+
+        {/* Test Routes */}
+        <Route path="/test/instructions/:examId" element={<ProtectedRoute role="student"><TestLayout><TestInstructionsPage /></TestLayout></ProtectedRoute>} />
+        <Route path="/test/:examId" element={<ProtectedRoute role="student"><TestLayout><TestPage /></TestLayout></ProtectedRoute>} />
+        <Route path="/solution/:attemptId" element={<ProtectedRoute role="student"><TestLayout><SolutionPage /></TestLayout></ProtectedRoute>} />
+
+
 
         {/* Admin Protected Routes */}
         <Route
