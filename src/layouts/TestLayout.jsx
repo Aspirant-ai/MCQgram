@@ -1,11 +1,11 @@
+// src/layouts/TestLayout.jsx
 
 import React from 'react';
-import { Outlet } from 'react-router-dom';
 
-const TestLayout = () => {
+const TestLayout = ({ children }) => {
   return (
-    <div className="min-h-screen bg-gray-100 w-full h-full fixed inset-0 overflow-hidden">
-      <Outlet />
+    <div className="fixed inset-0 z-50 bg-white dark:bg-gray-900 w-full h-full overflow-auto">
+      {children}
     </div>
   );
 };

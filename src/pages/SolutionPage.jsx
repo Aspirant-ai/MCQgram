@@ -99,11 +99,11 @@ const SolutionPage = () => {
             <p className="text-gray-600 text-xs md:text-sm truncate">{exam.fullName}</p>
           </div>
           <div className="flex items-center space-x-2">
-            <Button variant="outline" size="sm" onClick={() => navigate(`/result/${attemptId}`)}>
+            <Button variant="outline" size="sm" onClick={() => navigate(`/dashboard/result/${attemptId}`)}>
               <ArrowLeft className="h-4 w-4 mr-1" /> Result
             </Button>
             <Button variant="outline" size="sm" asChild>
-              <Link to="/"> <Home className="h-4 w-4 mr-1" /> Home </Link>
+              <Link to="/dashboard"> <Home className="h-4 w-4 mr-1" /> Home </Link>
             </Button>
           </div>
         </div>

@@ -59,7 +59,7 @@ const RecentAttemptCard = ({ attempt, examDetails, index }) => (
         </div>
       </div>
       <Link 
-        to={`/result/${attempt.id}`}
+        to={`/dashboard/result/${attempt.id}`}
         className="text-primary dark:text-primary-light text-sm font-medium hover:underline flex items-center mt-4"
       >
         View Report <ArrowRight className="ml-1 h-3 w-3" />

@@ -197,7 +197,7 @@ const ProfilePage = () => {
                         : "You haven't taken any tests yet. Start practicing to see your results here."}
                     </p>
                     <Button asChild>
-                      <Link to="/categories">
+                      <Link to="/dashboard/categories">
                         Start Practicing
                       </Link>
                     </Button>
@@ -252,7 +252,7 @@ const ProfilePage = () => {
                                 </div>
                                 <div className="ml-auto">
                                   <Link 
-                                    to={`/result/${attempt.id}`}
+                                    to={`/dashboard/result/${attempt.id}`}
                                     className="text-primary font-medium hover:underline flex items-center"
                                   >
                                     View Details <ArrowRight className="ml-1 h-3 w-3" />
@@ -344,14 +344,14 @@ const ProfilePage = () => {
                 <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
                 <div className="space-y-3">
                   <Button className="w-full justify-start" asChild>
-                    <Link to="/categories">
+                    <Link to="/dashboard/categories">
                       <FileText className="mr-2 h-4 w-4" /> Take a New Test
                     </Link>
                   </Button>
                   
                   {userAttempts.length > 0 && (
                     <Button variant="outline" className="w-full justify-start" asChild>
-                      <Link to={`/result/${sortedAttempts[0].id}`}>
+                      <Link to={`/dashboard/result/${sortedAttempts[0].id}`}>
                         <BarChart2 className="mr-2 h-4 w-4" /> View Latest Result
                       </Link>
                     </Button>
@@ -371,7 +371,7 @@ const ProfilePage = () => {
                         {category.exams.slice(0, 3).map(exam => (
                           <Link 
                             key={exam.id}
-                            to={`/instructions/${exam.id}`}
+                            to={`/dashboard/instructions/${exam.id}`}
                             className="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors"
                           >
                             <div className={`${colorMap[category.id]} text-white p-2 rounded-md mr-3`}>
