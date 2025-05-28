@@ -97,7 +97,7 @@ const HeroSection = () => (
             <Button 
               size="lg" 
               variant="outline" // Changed from default to outline
-              className="border-white text-white hover:bg-white/10 focus:bg-white/10 focus:text-white"
+              className="border-white text-primary hover:bg-white/10 focus:bg-white/10 focus:text-white"
               asChild
             >
               <Link to="/dashboard/categories"> {/* Assuming login first */}

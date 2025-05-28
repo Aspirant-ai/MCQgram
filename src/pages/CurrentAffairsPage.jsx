@@ -123,7 +123,7 @@ const CurrentAffairsPage = () => {
                     <span key={tag} className="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full">{tag}</span>
                   ))}
                 </div>
-                <Link to={`/current-affairs/${affair.id}`} className="text-sm text-primary font-medium hover:underline flex items-center">
+                <Link to={`/dashboard/current-affairs/${affair.id}`} className="text-sm text-primary font-medium hover:underline flex items-center">
                   Read More <ArrowRight className="ml-1 h-3.5 w-3.5" />
                 </Link>
               </motion.div>

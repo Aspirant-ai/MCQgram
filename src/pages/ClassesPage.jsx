@@ -80,7 +80,7 @@ const ClassesPage = () => {
                 </div>
                 
                 <Button asChild className="w-full mt-auto">
-                  <Link to={`/classes/${cls.id}`}>View Details</Link>
+                  <Link to={`/dashboard/classes/${cls.id}`}>View Details</Link>
                 </Button>
               </div>
             </motion.div>

@@ -96,14 +96,14 @@ const LiveTestsPage = () => {
               )}
               {test.status === 'Ongoing' && (
                 <Button asChild className="w-full sm:w-auto bg-green-600 hover:bg-green-700">
-                  <Link to={`/test/live/${test.id}`}>
+                  <Link to={`/dashboard/test/live/${test.id}`}>
                     Join Test Now <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               )}
               {test.status === 'Completed' && (
                  <Button variant="outline" asChild className="w-full sm:w-auto">
-                  <Link to={`/result/live/${test.id}`}>
+                  <Link to={`/dashboard/result/live/${test.id}`}>
                     View Result <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
