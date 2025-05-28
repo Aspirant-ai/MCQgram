@@ -80,7 +80,7 @@ const ExamCategoriesPage = () => {
                       ))}
                     </div>
                     <Link 
-                      to={`/exams/${category.id}`}
+                      to={`/dashboard/exams/${category.id}`}
                       className="text-primary font-medium flex items-center hover:underline"
                     >
                       View Exams <ArrowRight className="ml-1 h-4 w-4" />

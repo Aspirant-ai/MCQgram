@@ -198,7 +198,7 @@ const TestPage = () => {
         setIsSubmitting(false);
         setIsSubmitDialogOpen(false);
         setIsTimeUpDialogOpen(false);
-        navigate(`/result/${savedAttempt.id}`);
+        navigate(`/dashboard/result/${savedAttempt.id}`);
     };
     
     exitFullscreen().finally(submitLogic);
